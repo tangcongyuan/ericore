@@ -16,7 +16,7 @@ namespace Ericore.Services
         }
         public string GetGreeting()
         {
-            return "Hello from the greeter!";
+            return _greeting;
         }
     }
 }

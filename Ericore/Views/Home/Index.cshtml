@@ -1,0 +1,19 @@
+﻿@model Ericore.ViewModels.HomePageViewModel
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Comments</title>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <h2>@Model.Greeting</h2>
+    <table>
+        @foreach (var comment in Model.Comments)
+        {
+            <tr>
+                <td>@Html.ActionLink(comment.Id.ToString(), "Details", new { id=comment.Id })</td>
+                <td>@comment.Text</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

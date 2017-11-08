@@ -26,6 +26,7 @@ namespace Ericore
             services.AddMvc();
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IGreeter, Greeter>();
+            services.AddScoped<ICommentData, InMemoryCommentData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

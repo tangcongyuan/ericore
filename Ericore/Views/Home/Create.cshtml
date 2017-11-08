@@ -1,0 +1,23 @@
+﻿@using Ericore.Entities
+@model Comment
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create a comment</title>
+</head>
+<body>
+    <h1>Create a comment here:</h1>
+    
+    @using (Html.BeginForm())
+    {
+        <div>
+            @Html.LabelFor(m => m.Text)
+            @Html.EditorFor(m => m.Text)
+            @Html.ValidationMessageFor(m => m.Text)
+        </div>
+        <div>
+            <input type="submit" value="Save" />
+        </div>
+    }
+
+</body>
+</html>
