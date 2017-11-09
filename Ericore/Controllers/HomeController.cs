@@ -2,6 +2,7 @@
 using Ericore.Services;
 using Ericore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Ericore.Controllers
 {
@@ -9,17 +10,19 @@ namespace Ericore.Controllers
     {
         private ICommentData _commentData;
         private IGreeter _greeter;
+        private IConfiguration _configuration;
 
-        public HomeController(ICommentData commentData, IGreeter greeter)
+        public HomeController(ICommentData commentData, IGreeter greeter, IConfiguration configuration)
         {
             _commentData = commentData;
             _greeter = greeter;
+            _configuration = configuration;
         }
         public ViewResult Index()
         {
             var model = new HomePageViewModel(); //_commentData.GetAllComments();
             model.Comments = _commentData.GetAllComments();
-            model.Greeting = _greeter.GetGreeting();
+            model.ConnectionString = _configuration["database:connectionString"];
             return View(model);
         }
 

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Ericore.Services;
 using Microsoft.Extensions.Configuration;
+using Ericore.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ericore
 {
@@ -24,9 +26,12 @@ namespace Ericore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<EricoreDbContext>(options => options.UseSqlServer(Configuration["database:connectionString"]));
+
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<ICommentData, InMemoryCommentData>();
+            services.AddScoped<ICommentData, SqlCommentData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

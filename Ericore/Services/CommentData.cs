@@ -35,4 +35,30 @@ namespace Ericore.Services
             _comments.Add(newComment);
         }
     }
+
+    public class SqlCommentData : ICommentData
+    {
+        private EricoreDbContext _context;
+
+        public SqlCommentData(EricoreDbContext context)
+        {
+            _context = context;
+        }
+
+        public void Add(Comment newComment)
+        {
+            _context.Comments.Add(newComment);
+            _context.SaveChanges();
+        }
+
+        public Comment Get(int id)
+        {
+            return _context.Comments.FirstOrDefault(c => c.Id == id);
+        }
+
+        public IEnumerable<Comment> GetAllComments()
+        {
+            return _context.Comments.ToList<Comment>();
+        }
+    }
 }
