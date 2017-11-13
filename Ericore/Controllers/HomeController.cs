@@ -9,20 +9,19 @@ namespace Ericore.Controllers
     public class HomeController : Controller
     {
         private ICommentData _commentData;
-        private IGreeter _greeter;
+        private IDBTag _dbTag;
         private IConfiguration _configuration;
 
-        public HomeController(ICommentData commentData, IGreeter greeter, IConfiguration configuration)
+        public HomeController(ICommentData commentData, IDBTag dBTag, IConfiguration configuration)
         {
             _commentData = commentData;
-            _greeter = greeter;
+            _dbTag = dBTag;
             _configuration = configuration;
         }
         public ViewResult Index()
         {
             var model = new HomePageViewModel(); //_commentData.GetAllComments();
             model.Comments = _commentData.GetAllComments();
-            model.ConnectionString = _configuration["database:connectionString"];
             return View(model);
         }
 
@@ -54,10 +53,36 @@ namespace Ericore.Controllers
                 };
 
                 _commentData.Add(comment);
+                _commentData.Commit();
 
                 return RedirectToAction("Details", new { id = comment.Id });
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var comment = _commentData.Get(id);
+            if (comment == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(comment);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, CommentEditViewModel input)
+        {
+            var comment = _commentData.Get(id);
+            if (comment != null && ModelState.IsValid)
+            {
+                comment.Text = input.Text;
+                _commentData.Commit();
+                return RedirectToAction("Details", new { id = comment.Id });
+            }
+            return View(comment);
         }
     }
 }

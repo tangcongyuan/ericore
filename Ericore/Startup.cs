@@ -30,7 +30,7 @@ namespace Ericore
             services.AddDbContext<EricoreDbContext>(options => options.UseSqlServer(Configuration["database:connectionString"]));
 
             services.AddSingleton(provider => Configuration);
-            services.AddSingleton<IGreeter, Greeter>();
+            services.AddSingleton<IDBTag, DBTag>();
             services.AddScoped<ICommentData, SqlCommentData>();
         }
 
@@ -38,7 +38,7 @@ namespace Ericore
         public void Configure(
             IApplicationBuilder app,
             IHostingEnvironment env,
-            IGreeter greeter)
+            IDBTag dBTag)
         {
             if (env.IsDevelopment())
             {
@@ -53,8 +53,8 @@ namespace Ericore
 
             app.Run(async (context) =>
             {
-                var greeting = greeter.GetGreeting();
-                await context.Response.WriteAsync(greeting);
+                var dbTag = dBTag.GetDBTag();
+                await context.Response.WriteAsync(dbTag);
             });
         }
     }

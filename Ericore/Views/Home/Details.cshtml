@@ -1,14 +1,13 @@
-﻿@model Ericore.Entities.Comment
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Comments</title>
-</head>
-<body>
-    <h1>Details:</h1>
-    <div>ID: @Model.Id</div>
-    <div>Text: @Model.Text</div>
-    <div>
-        @Html.ActionLink("Home", "Index")
-    </div>
-</body>
-</html>
+﻿@model Comment
+
+@{ 
+    ViewBag.Title = "Details";
+}
+
+<h1>Details:</h1>
+<div>ID: @Model.Id</div>
+<div>Text: @Model.Text</div>
+<div>
+    @Html.ActionLink("Home", "Index")
+</div>
+<br />

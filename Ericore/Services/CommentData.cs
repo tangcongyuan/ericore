@@ -9,6 +9,7 @@ namespace Ericore.Services
         IEnumerable<Comment> GetAllComments();
         Comment Get(int id);
         void Add(Comment newComment);
+        int Commit();
     }
 
     public class InMemoryCommentData : ICommentData
@@ -34,6 +35,11 @@ namespace Ericore.Services
             newComment.Id = _comments.Max(c => c.Id) + 1;
             _comments.Add(newComment);
         }
+
+        int ICommentData.Commit()
+        {
+            return 0;
+        }
     }
 
     public class SqlCommentData : ICommentData
@@ -48,7 +54,11 @@ namespace Ericore.Services
         public void Add(Comment newComment)
         {
             _context.Comments.Add(newComment);
-            _context.SaveChanges();
+        }
+
+        public int Commit()
+        {
+            return _context.SaveChanges();
         }
 
         public Comment Get(int id)

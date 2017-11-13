@@ -6,7 +6,5 @@ namespace Ericore.ViewModels
     public class HomePageViewModel
     {
         public IEnumerable<Comment> Comments { get; set; }
-        public string Greeting { get; set; }
-        public string ConnectionString { get; set; }
     }
 }

@@ -1,19 +1,23 @@
-﻿@model Ericore.ViewModels.HomePageViewModel
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Comments</title>
-</head>
-<body>
-    <h1>Welcome!</h1>
-    <h2>Connection string: @Model.ConnectionString</h2>
-    <table>
-        @foreach (var comment in Model.Comments)
-        {
-            <tr>
-                <td>@Html.ActionLink(comment.Id.ToString(), "Details", new { id=comment.Id })</td>
-                <td>@comment.Text</td>
-            </tr>
-        }
-    </table>
-</body>
-</html>
+﻿@model HomePageViewModel
+
+@{ 
+    ViewBag.Title = "Home";
+}
+
+<h1>Welcome!</h1>
+
+@foreach (var comment in Model.Comments)
+{
+    @Html.Partial("_SingleComment", comment)
+}
+<br />
+
+<div>
+    <a asp-action="Create">Create</a>
+    @*@Html.ActionLink("Create", "Create")*@
+</div>
+<br />
+
+@section footer {
+    <div>Copyright &copy; Eric's Website @DateTime.Now.Year</div>
+}
