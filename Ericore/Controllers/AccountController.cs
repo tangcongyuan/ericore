@@ -67,10 +67,10 @@ namespace Ericore.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
                 }
             }
-            ModelState.AddModelError("", "Invalid login attempt.");
             return View(model);
         }
 
