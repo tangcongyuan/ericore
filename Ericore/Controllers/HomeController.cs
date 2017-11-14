@@ -1,11 +1,13 @@
 ﻿using Ericore.Entities;
 using Ericore.Services;
 using Ericore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace Ericore.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ICommentData _commentData;
@@ -18,6 +20,8 @@ namespace Ericore.Controllers
             _dbTag = dBTag;
             _configuration = configuration;
         }
+
+        [AllowAnonymous]
         public ViewResult Index()
         {
             var model = new HomePageViewModel(); //_commentData.GetAllComments();

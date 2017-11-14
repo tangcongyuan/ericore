@@ -11,9 +11,10 @@ using System;
 namespace Ericore.Migrations
 {
     [DbContext(typeof(EricoreDbContext))]
-    partial class EricoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171113191951_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

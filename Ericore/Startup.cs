@@ -6,6 +6,7 @@ using Ericore.Services;
 using Microsoft.Extensions.Configuration;
 using Ericore.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Ericore
 {
@@ -29,6 +30,9 @@ namespace Ericore
 
             services.AddDbContext<EricoreDbContext>(options => options.UseSqlServer(Configuration["database:connectionString"]));
 
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<EricoreDbContext>();
+
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IDBTag, DBTag>();
             services.AddScoped<ICommentData, SqlCommentData>();
@@ -49,7 +53,9 @@ namespace Ericore
             //app.UseStaticFiles();
             //app.UseFileServer(); // = app.UseDefaultFiles() + app.UseStaticFiles();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseAuthentication();
+
+            app.UseMvcWithDefaultRoute(); // app.UseMvc(ConfigureRoutes);
 
             app.Run(async (context) =>
             {
