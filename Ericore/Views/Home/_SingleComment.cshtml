@@ -1,9 +1,10 @@
 ﻿@model Comment
 
-<section>
-    <h3>@Model.Id: @Model.Text</h3>
+<section class="panel panel-default">
+    <div class="panel-heading">@Model.Id:</div>
+    <div class="panel-body">@Model.Text</div>
     <div>
-        @Html.ActionLink("Details", "Details", new { id = @Model.Id })
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <a class="btn btn-default" asp-action="Details" asp-route-id="@Model.Id">Details</a>
+        <a class="btn btn-default" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     </div>
 </section>

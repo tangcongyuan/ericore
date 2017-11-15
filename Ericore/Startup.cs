@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Ericore.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Ericore
 {
@@ -52,6 +53,8 @@ namespace Ericore
             //app.UseDefaultFiles();
             //app.UseStaticFiles();
             //app.UseFileServer(); // = app.UseDefaultFiles() + app.UseStaticFiles();
+
+            app.UseNodeModules(env);
 
             app.UseAuthentication();
 
